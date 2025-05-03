@@ -1,100 +1,97 @@
 # not-a-fan
 
-## Description
-This tool analyzes your Instagram followers by processing HTML files of your followers and following lists. It helps you identify users who don't follow you back and generates easy-to-use CSV files with the results.
+## Descripción
+Esta herramienta analiza tus seguidores de Instagram procesando archivos HTML de tus listas de seguidores y seguidos. Te ayuda a identificar usuarios que no te siguen de vuelta y genera archivos CSV fáciles de usar con los resultados.
 
-## Features
-- Extract Instagram usernames from HTML files
-- Compare followers and following lists
-- Identify users who don't follow you back
-- Generate organized CSV files with the results
-- Support for analyzing multiple accounts by specifying different input folders
+## Características
+- Extrae nombres de usuario de Instagram de archivos HTML
+- Compara listas de seguidores y seguidos
+- Identifica usuarios que no te siguen de vuelta
+- Genera archivos CSV organizados con los resultados
+- Soporte para analizar múltiples cuentas especificando diferentes carpetas de entrada
 
-## Requirements
-- Python 3.6 or higher
-- Required Python packages:
-  - re (standard library)
-  - csv (standard library)
-  - os (standard library)
-  - sys (standard library)
-  - time (standard library)
-  - argparse (standard library)
+## Requisitos
+- Python 3.6 o superior
+- Paquetes de Python requeridos:
+  - re (biblioteca estándar)
+  - csv (biblioteca estándar)
+  - os (biblioteca estándar)
+  - sys (biblioteca estándar)
+  - time (biblioteca estándar)
+  - argparse (biblioteca estándar)
 
-## Installation
-1. Clone this repository or download the files
-2. No external packages are required as the tool only uses Python standard libraries
+## Instalación
+1. Clona este repositorio o descarga los archivos
 
-## How to Use
+## Cómo usar...
 
-### Step 1: Get your Instagram data
-1. Log in to Instagram in your web browser
-2. Go to your profile
-3. Click on "Followers" and save the page as complete HTML (Ctrl+S or Cmd+S)
-   - Name the file `followers_1.html`
-4. Click on "Following" and save the page as complete HTML
-   - Name the file `following.html`
-5. Place both files in a folder (e.g., `data`, `data_myaccount`)
+### Paso 1: Obtener tus datos de Instagram
+Para obtener tus datos de Instagram, sigue estos pasos:
 
-### Step 2: Run the analysis
-Open a terminal and run:
+1. Inicia sesión en Instagram y ve a la configuración de tu cuenta
+2. Navega a "Centro de cuentas" y luego selecciona "Tu información y permisos"
+3. Haz clic en "Descargar tu información"
+4. En el formulario que aparece:
+   - Selecciona "Descargar o transferir información"
+   - Elige tu cuenta de Instagram
+   - Marca "Parte de tu información"
+   - Selecciona únicamente "Seguidores y seguidos"
+   - Elige "Descargar en dispositivo"
+5. En la siguiente pantalla:
+   - Para el intervalo de fechas, selecciona "Desde el principio"
+   - Haz clic en "Crear archivos"
+6. Instagram procesará tu solicitud y te enviará una notificación cuando tus datos estén listos para descargar
+7. Descarga y extrae los archivos. Busca los archivos "followers_1.html" y "following.html". Crea una carpeta llamada "data" en la raiz de este proyecto y ubícalos dentro.
+
+
+### Paso 2: Ejecutar el código
+Abre una terminal y ejecuta:
 
 ```bash
-python main.py [input_folder]
+python main.py [carpeta_de_entrada]
 ```
 
-For example:
+Por ejemplo:
 ```bash
 python main.py data
 ```
 
-You can also specify a custom output folder:
+También puedes especificar una carpeta de salida personalizada:
 ```bash
-python main.py data --output my_results
+python main.py data --output mis_resultados
 ```
 
-### Step 3: View the results
-The tool will generate the following files in the output folder (default: `processed_[input_folder]`):
-- `followers.csv`: List of all your followers
-- `following.csv`: List of all accounts you follow
-- `not_following_back.csv`: List of accounts that don't follow you back
+### Paso 3: Ver los resultados
+La herramienta generará los siguientes archivos en la carpeta de salida (por defecto: `processed_[carpeta_de_entrada]`):
+- `followers.csv`: Lista de todos tus seguidores
+- `following.csv`: Lista de todas las cuentas que sigues
+- `not_following_back.csv`: Lista de cuentas que no te siguen de vuelta
 
-## Advanced Usage
-
-### Analyzing Multiple Accounts
-You can analyze different Instagram accounts by organizing their HTML files in separate folders:
-
-```bash
-python main.py account1_data
-python main.py account2_data
+## Opciones de línea de comandos
 ```
+uso: main.py [-h] [--output OUTPUT] [carpeta_de_entrada]
 
-This will create separate output folders named `processed_account1_data` and `processed_account2_data`.
+Analizar seguidores de Instagram.
 
-## Command Line Options
-```
-usage: main.py [-h] [--output OUTPUT] [input_folder]
+argumentos posicionales:
+  carpeta_de_entrada    Carpeta que contiene archivos HTML (followers_1.html y following.html)
 
-Analyze Instagram followers.
-
-positional arguments:
-  input_folder          Folder containing HTML files (followers_1.html and following.html)
-
-optional arguments:
-  -h, --help            show this help message and exit
+argumentos opcionales:
+  -h, --help            mostrar este mensaje de ayuda y salir
   --output OUTPUT, -o OUTPUT
-                        Folder to save results (default: processed_[input_folder])
+                        Carpeta para guardar resultados (por defecto: processed_[carpeta_de_entrada])
 ```
 
-## Output
-The script will display a summary of the analysis in the terminal:
-- Total number of followers
-- Total number of accounts you follow
-- Number of accounts that don't follow you back
-- List of generated files
-- Execution time
+## Salida
+El script mostrará un resumen del análisis en la terminal:
+- Número total de seguidores
+- Número total de cuentas que sigues
+- Número de cuentas que no te siguen de vuelta
+- Lista de archivos generados
+- Tiempo de ejecución
 
-## License
-This project is available for personal use.
+## Licencia
+Este proyecto está disponible para uso personal.
 
-## Disclaimer
-This tool is intended for personal analysis only. Please respect Instagram's terms of service and privacy policies when using this tool.
+## Aviso legal
+Esta herramienta está destinada solo para análisis personal. Por favor, respeta los términos de servicio y políticas de privacidad de Instagram al usar esta herramienta.
