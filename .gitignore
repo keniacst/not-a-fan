@@ -14,8 +14,8 @@ env/
 ENV/
 
 # Data and output files
-data/
-processed_*/
+data*/
+processed*/
 
 # Logs
 *.log

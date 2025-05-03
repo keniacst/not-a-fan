@@ -13,7 +13,7 @@ def main():
     # Set up the argument parser
     parser = argparse.ArgumentParser(description='Analyze who doesn\'t follow you back on Instagram.')
     parser.add_argument('input_folder', nargs='?', default='data', 
-                      help='Folder containing HTML files (followers_1.html and following.html)')
+                      help='Folder containing HTML or JSON files')
     parser.add_argument('--output', '-o', 
                       help='Folder to save results (default: processed_[input_folder])')
     
@@ -32,13 +32,36 @@ def main():
     # Verify that the input folder exists
     if not os.path.exists(input_folder):
         print(f"Error: The folder '{input_folder}' does not exist.")
-        print("Create the folder and place followers_1.html and following.html files inside.")
+        print("Create the folder and place your Instagram data files inside.")
         return 1
     
-    # Verify that the necessary HTML files exist
-    followers_file = os.path.join(input_folder, 'followers_1.html')
-    following_file = os.path.join(input_folder, 'following.html')
+    # Auto-detect file type
+    # Check for HTML files first
+    html_followers = os.path.join(input_folder, 'followers_1.html')
+    html_following = os.path.join(input_folder, 'following.html')
     
+    if os.path.exists(html_followers) and os.path.exists(html_following):
+        file_type = 'html'
+        followers_file = html_followers
+        following_file = html_following
+    else:
+        # Check for JSON files
+        json_followers = os.path.join(input_folder, 'followers_1.json')
+        json_following = os.path.join(input_folder, 'following.json')
+        
+        if os.path.exists(json_followers) and os.path.exists(json_following):
+            file_type = 'json'
+            followers_file = json_followers
+            following_file = json_following
+        else:
+            print("Error: Could not find Instagram data files.")
+            print("Please make sure you have either:")
+            print("  - followers_1.html and following.html, or")
+            print("  - followers_1.json and following.json")
+            print("in your input folder.")
+            return 1
+    
+    # Verify that the necessary files exist
     if not os.path.exists(followers_file):
         print(f"Error: File {followers_file} not found")
         return 1
@@ -56,13 +79,14 @@ def main():
     print("NOT-A-FAN")
     print_separator()
     print(f"Input folder: {input_folder}")
+    print(f"File type detected: {file_type}")
     print(f"Output folder: {output_folder}")
     
-    # STEP 1: Extract usernames from HTML files
+    # STEP 1: Extract usernames from files
     print_separator()
     print("STEP 1: Extracting usernames...")
     followers_count, following_count = extract_and_save_usernames(
-        input_folder, output_folder
+        input_folder, output_folder, file_type
     )
     
     # STEP 2: Compare followers and following
